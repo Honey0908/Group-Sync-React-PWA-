@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import styles from './Login.module.css';
+import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const { login } = useAuth();
@@ -11,6 +12,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     await login(email, password);
   };
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginBox}>
@@ -38,6 +40,9 @@ const Login: React.FC = () => {
             Login
           </button>
         </form>
+      </div>
+      <div>
+        Don't have an account? <Link to="/register">Register</Link>
       </div>
     </div>
   );

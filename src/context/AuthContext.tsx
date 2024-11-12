@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import { toastNotify } from '../utils/lib';
 
 interface User {
   _id: string;
   username: string;
   email: string;
-  // Add other user properties if necessary
 }
 
 interface AuthContextType {
@@ -24,45 +24,46 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
-  // Login function
-  const login = async (email: string, password: string) => {
-    try {
-      const response = await api.post('/users/login', { email, password });
-      console.log(response);
-      const { token, user } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      setUser(response.data.user);
-      navigate('/');
-    } catch (error) {
-      console.error('Login error', error);
-    }
-  };
-
-  // Function to check token validity (optional)
+  // Function to check token validity
   const checkTokenValidity = async () => {
+    // at first set user from local storage
     const user = localStorage.getItem('user');
     if (user) {
       setUser(JSON.parse(user));
     }
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   try {
-    //     const response = await api.get('/users/validate-token');
-    //     setUser(response.data.user); // Set user based on the valid token response
-    //   } catch (error) {
-    //     console.error('Token validation failed', error);
-    //     logout();
-    //   }
-    // }
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await api.get('/users/validate-token');
+        setUser(response.data.user);
+      } catch (error) {
+        console.error('Token validation failed', error);
+        logout();
+      }
+    }
   };
 
   useEffect(() => {
     checkTokenValidity();
   }, []);
+
+  // Login function
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await api.post('/users/login', { email, password });
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      setUser(response.data.user);
+      navigate('/');
+    } catch (error: any) {
+      toastNotify('error', error?.response?.data?.error);
+      console.error('Login error', error);
+    }
+  };
 
   // Register function
   const register = async (

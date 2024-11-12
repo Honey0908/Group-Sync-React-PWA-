@@ -1,59 +1,106 @@
-/* src/styles/Register.module.css */
 .registerContainer {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-}
-
-.registerContainer h2 {
-  text-align: center;
-}
-
-.registerContainer form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 4.8rem);
+  background-color: #f5f5f5;
+  padding: 20px;
 }
 
-.registerContainer form div {
-  margin-bottom: 15px;
+/* Heading styling */
+.registerContainer h2 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
 }
 
-.registerContainer form label {
+/* Register form container */
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  background-color: #333;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Label styling */
+.registerForm label {
+  color: #ffa500;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.registerInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.registerInput:focus {
+  border-color: #ffa500;
+}
+
+/* Submit button styling */
+.registerButton {
+  padding: 10px;
+  background-color: #ffa500;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.registerButton:hover {
+  background-color: #ff8c00;
+}
+
+/* Disabled button styling */
+.registerButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Error message styling */
+.errorMessage {
+  color: #ff4d4f;
+  background-color: #ffe6e6;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ff4d4f;
+  border-radius: 5px;
+}
+
+/* Link to login page */
+.registerLinkContainer {
+  margin-top: 10px;
+  color: #333;
+}
+
+.registerLink {
+  color: #ffa500;
+  text-decoration: none;
   font-weight: bold;
 }
 
-.registerContainer form input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.registerLink:hover {
+  text-decoration: underline;
 }
 
-.registerContainer form button {
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.registerContainer form button:disabled {
-  background-color: #888;
-}
-
-.errorMessage {
-  color: red;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.registerContainer div a {
-  display: block;
-  text-align: center;
-  margin-top: 10px;
+@media (max-width: 768px) {
+  .registerForm {
+    padding: 20px;
+  }
 }

@@ -1,40 +1,36 @@
 import React, { useState } from 'react';
 import styles from './CreateRoom.module.css';
 import { createRoom } from '../../api/roomApis';
+import { toastNotify } from '../../utils/lib';
 
 const CreateRoom: React.FC = () => {
   const [roomName, setRoomName] = useState('');
   const [maxMembers, setMaxMembers] = useState<number | ''>('');
-  const [error, setError] = useState('');
 
   const handleCreateRoom = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation (optional)
+    // Validation
     if (!roomName || !maxMembers) {
-      setError('Please provide both room name and max members.');
+      toastNotify('error', 'Please provide both room name and max members.');
       return;
     }
 
     try {
-      const response = await createRoom(roomName, maxMembers);
-      console.log(response.data);
-      // Reset form and handle success
+      await createRoom(roomName, maxMembers);
       setRoomName('');
       setMaxMembers('');
-      setError('');
-      alert('Room created successfully');
-    } catch (error) {
+      toastNotify('success', 'Room created successfully');
+    } catch (error: any) {
       console.error('Error creating room:', error);
-      setError('Failed to create room');
+      toastNotify('error', error?.respose?.data?.error);
     }
   };
 
   return (
     <div className={styles.createRoomContainer}>
-      <h2>Create a Room</h2>
-      {error && <div className={styles.errorMessage}>{error}</div>}
       <form className={styles.formContainer} onSubmit={handleCreateRoom}>
+        <h2>Create a Room</h2>
         <div className={styles.inputGroup}>
           <label>Room Name:</label>
           <input

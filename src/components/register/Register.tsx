@@ -1,6 +1,6 @@
 // src/pages/Register.tsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 import api from '../../api/axios';
 
@@ -56,15 +56,16 @@ const Register: React.FC = () => {
 
   return (
     <div className={styles.registerContainer}>
-      <h2>Register</h2>
       {error && <div className={styles.errorMessage}>{error}</div>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.registerForm}>
+        <h2 className={styles.registerHeading}>Register</h2>
         <div>
           <label htmlFor="name">Name</label>
           <input
             type="text"
             id="name"
             name="username"
+            className={styles.registerInput}
             value={formData.username}
             onChange={handleInputChange}
             required
@@ -76,6 +77,7 @@ const Register: React.FC = () => {
             type="email"
             id="email"
             name="email"
+            className={styles.registerInput}
             value={formData.email}
             onChange={handleInputChange}
             required
@@ -87,6 +89,7 @@ const Register: React.FC = () => {
             type="password"
             id="password"
             name="password"
+            className={styles.registerInput}
             value={formData.password}
             onChange={handleInputChange}
             required
@@ -98,17 +101,23 @@ const Register: React.FC = () => {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
+            className={styles.registerInput}
             value={formData.confirmPassword}
             onChange={handleInputChange}
             required
           />
         </div>
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          className={styles.registerButton}
+          disabled={loading}
+        >
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
+
       <div>
-        Already have an account? <a href="/login">Login</a>
+        Already have an account? <Link to="/login">Login</Link>
       </div>
     </div>
   );

@@ -54,20 +54,20 @@ const UserRooms: React.FC = () => {
   return (
     <div className={styles.userRoomsContainer}>
       <h2>Your Rooms</h2>
+      <span className={styles.joinRoomWarning}>
+        (Share Room ID to let others join)
+      </span>
 
-      {/* List of rooms - displayed side by side */}
+      {/* List of rooms  */}
       <ul className={styles.roomList}>
         {rooms?.length > 0 ? (
           rooms.map((room) => (
             <li key={room._id} className={styles.roomItem}>
               <div>
-                <strong>Room Name: {room.name}</strong>
-                <span>
-                  Members: {room.members?.map((m) => m.username).join(', ')}
-                </span>
-                <span className={styles.roomIdInfo}>
-                  Room ID: {room._id} (Share this ID to let others join)
-                </span>
+                <strong>{room.name}</strong>
+                <div className={styles.membersHeading}> Members:</div>
+                <span>{room.members?.map((m) => m.username).join(', ')}</span>
+                <div className={styles.roomIdInfo}>Room ID: {room._id}</div>
               </div>
               <button
                 className={styles.enterButton}
@@ -78,7 +78,7 @@ const UserRooms: React.FC = () => {
             </li>
           ))
         ) : (
-          <li>No rooms available.</li>
+          <h2 className={styles.NoRoomText}>No rooms Yet.</h2>
         )}
       </ul>
 

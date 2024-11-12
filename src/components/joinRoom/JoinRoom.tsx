@@ -7,13 +7,10 @@ const JoinRoom: React.FC = () => {
 
   // Function to join the room
   const joinRoom = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent the default form submission
-
+    e.preventDefault();
     try {
-      const response = await api.post(`/rooms/join/${roomId}`);
-
-      console.log(response);
-      setRoomId(''); // Clear the room ID field
+      await api.post(`/rooms/join/${roomId}`);
+      setRoomId('');
     } catch (error) {
       console.log(error);
     }
@@ -21,8 +18,8 @@ const JoinRoom: React.FC = () => {
 
   return (
     <div className={styles.joinRoomContainer}>
-      <h2>Join a Room</h2>
       <form className={styles.formContainer} onSubmit={joinRoom}>
+        <h2>Join a Room</h2>
         <div className={styles.inputGroup}>
           <label>Room ID:</label>
           <input
