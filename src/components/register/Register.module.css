@@ -1,0 +1,59 @@
+/* src/styles/Register.module.css */
+.registerContainer {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.registerContainer h2 {
+  text-align: center;
+}
+
+.registerContainer form {
+  display: flex;
+  flex-direction: column;
+}
+
+.registerContainer form div {
+  margin-bottom: 15px;
+}
+
+.registerContainer form label {
+  font-weight: bold;
+}
+
+.registerContainer form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.registerContainer form button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.registerContainer form button:disabled {
+  background-color: #888;
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.registerContainer div a {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
