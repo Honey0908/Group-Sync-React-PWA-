@@ -93,6 +93,7 @@ const Register: React.FC = () => {
             value={formData.password}
             onChange={handleInputChange}
             required
+            autoComplete="new-password"
           />
         </div>
         <div>

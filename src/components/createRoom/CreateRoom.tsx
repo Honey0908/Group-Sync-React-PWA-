@@ -23,7 +23,10 @@ const CreateRoom: React.FC = () => {
       toastNotify('success', 'Room created successfully');
     } catch (error: any) {
       console.error('Error creating room:', error);
-      toastNotify('error', error?.respose?.data?.error);
+      toastNotify(
+        'error',
+        error?.respose?.data?.error ?? 'Failed to create Room, will sync later'
+      );
     }
   };
 
@@ -38,6 +41,7 @@ const CreateRoom: React.FC = () => {
             value={roomName}
             onChange={(e) => setRoomName(e.target.value)}
             placeholder="Enter room name"
+            required
           />
         </div>
 
@@ -48,6 +52,7 @@ const CreateRoom: React.FC = () => {
             value={maxMembers}
             onChange={(e) => setMaxMembers(Number(e.target.value))}
             placeholder="Enter number of members"
+            required
           />
         </div>
 

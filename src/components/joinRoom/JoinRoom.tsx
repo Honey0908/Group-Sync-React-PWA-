@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './JoinRoom.module.css';
 import api from '../../api/axios';
+import { toastNotify } from '../../utils/lib';
 
 const JoinRoom: React.FC = () => {
   const [roomId, setRoomId] = useState('');
@@ -8,11 +9,19 @@ const JoinRoom: React.FC = () => {
   // Function to join the room
   const joinRoom = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!roomId) {
+      toastNotify('error', 'Please Provide Room Id');
+    }
     try {
       await api.post(`/rooms/join/${roomId}`);
       setRoomId('');
-    } catch (error) {
-      console.log(error);
+      toastNotify('success', 'Joined Room Successfully');
+    } catch (error: any) {
+      toastNotify(
+        'error',
+        error?.response?.data?.error ?? 'Failed to join Room, will sync later'
+      );
+      console.error(error);
     }
   };
 
@@ -23,6 +32,7 @@ const JoinRoom: React.FC = () => {
         <div className={styles.inputGroup}>
           <label>Room ID:</label>
           <input
+            required
             type="text"
             value={roomId}
             onChange={(e) => setRoomId(e.target.value)}
