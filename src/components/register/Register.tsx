@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 import api from '../../api/axios';
+import { toastNotify } from '../../utils/lib';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -37,12 +38,12 @@ const Register: React.FC = () => {
 
     try {
       // Make POST request to the server for registration
-      const response = await api.post('/users/register', {
+      await api.post('/users/register', {
         username: formData.username,
         email: formData.email,
         password: formData.password,
       });
-      console.log('User registered:', response.data);
+      toastNotify('success', 'User registered successfullys!');
 
       // Redirect to login page after successful registration
       navigate('/login');

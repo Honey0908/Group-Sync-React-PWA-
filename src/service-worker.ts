@@ -26,7 +26,6 @@ registerRoute(
 const bgSyncPlugin = new BackgroundSyncPlugin('sync-room', {
   maxRetentionTime: 24 * 60, // Retry for max of 24 Hours
   onSync: async ({ queue }) => {
-    console.log('tryiong to syncing post ');
     let entry;
     // shift each request from queue and upload it
     while ((entry = await queue.shiftRequest())) {

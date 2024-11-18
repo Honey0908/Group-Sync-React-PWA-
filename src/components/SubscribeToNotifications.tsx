@@ -19,9 +19,7 @@ const SubscribeToNotifications: React.FC = () => {
   const { user } = useAuth();
   useEffect(() => {
     const subscribeUser = async () => {
-      console.log('hello');
       if ('serviceWorker' in navigator && 'PushManager' in window) {
-        console.log('has service worker');
         try {
           // Register service worker
           const serviceWorker = await navigator.serviceWorker.ready;
@@ -48,7 +46,6 @@ const SubscribeToNotifications: React.FC = () => {
             if (response.status === 200) {
               displayConfirmNotification();
             }
-            console.log('User is subscribed:', newSubscription);
           }
         } catch (error) {
           console.error('Failed to subscribe to push notifications', error);
