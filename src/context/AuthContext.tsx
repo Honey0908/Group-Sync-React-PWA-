@@ -29,13 +29,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Function to check token validity
   const checkTokenValidity = async () => {
-    // at first set user from local storage
-    const user = localStorage.getItem('user');
-    if (user) {
-      setUser(JSON.parse(user));
-    }
     const token = localStorage.getItem('token');
+    // At first, set user from local storage
+    const storedUser = localStorage.getItem('user');
+    if (token && storedUser) {
+      setUser(JSON.parse(storedUser));
+      navigate('/');
+    }
+
     if (token) {
+      // Check if the user is online before making the API request
+      if (!navigator.onLine) {
+        console.warn('No network connection. Skipping token validation.');
+        return; // Skip the API call when offline
+      }
+
       try {
         const response = await api.get('/users/validate-token');
         setUser(response.data.user);
@@ -81,7 +89,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Logout function
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();
     setUser(null);
     navigate('/login');
   };
